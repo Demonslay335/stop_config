@@ -106,7 +106,7 @@ class MyEventHandler(winappdbg.EventHandler):
                 try:
                     data = p.read(z[i+1],z[i])
                     if data[:2]=='MZ':
-                        memfilename=str("dump-")+str(z[i+1])+".mem.exe"
+                        memfilename=str("dump-")+str(z[i+1])+".mem"
                         f=open(memfilename,'wb')
                         f.write(data)
                         f.close()
@@ -131,11 +131,13 @@ def simple_debugger(filename):
 
   try:
     handler = MyEventHandler()
+    with winappdbg.Debug(handler,bKillOnExit = True) as debug:
+      abspath = os.path.abspath(filename)
+      debug.execl(os.path.join(os.path.dirname(abspath), filename))
+      debug.loop()
+  except KeyboardInterrupt:
+    print("Stopped")
   except:
     traceback.print_exc()
-  with winappdbg.Debug(handler,bKillOnExit = True) as debug:
-    abspath = os.path.abspath(filename)
-    debug.execl(os.path.join(os.path.dirname(abspath), filename))
-    debug.loop()
 
 simple_debugger(sys.argv[1])
