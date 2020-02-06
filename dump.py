@@ -110,9 +110,10 @@ class MyEventHandler(winappdbg.EventHandler):
                         f=open(memfilename,'wb')
                         f.write(data)
                         f.close()
-                        print("Succes dump memory {} to file:{}".format(hex(z[i+1]),memfilename))
-                        time.sleep(1000)
-                        sys.exit()
+                        print("Success dump memory {} to file:{}".format(hex(z[i+1]),memfilename))
+                        raise KeyboardInterrupt
+                except KeyboardInterrupt:
+                    raise
                 except:
                     pass
 
