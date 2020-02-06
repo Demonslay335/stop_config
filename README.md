@@ -4,9 +4,25 @@ Dump configuration from STOP Djvu ransomware sample
 ## Usage
 First, unpack malware sample using `dump.py`
 
-`>python dump.py sample.bin`
+```
+>python dump.py sample.bin`
 
-Use Ctrl+C to stop the malware process as soon as you see "Succes dump memory 0x...", or it will continue to setup for encrypting files.
+...
+
+------------------------------ VirtualProtect (0x27565e) ------------------------------
+      _In_  LPVOID lpAddress: 0x400000
+      _In_  SIZE_T dwSize: 458752
+      _In_  DWORD  flNewProtect: PAGE_EXECUTE_READWRITE
+      _Out_ PDWORD lpflOldProtect: 0x18e45c
+
+Param 0: 2578014
+Param 1: 4194304
+Param 2: 458752
+Param 3: 64
+Param 4: 1631324
+Success dump memory 0x3a0000L to file:dump-2686976.mem
+Stopped
+```
 
 Then, simply feed dumped sample to `stop_config.py`. Option `-s` can be used to save config to file.
 
